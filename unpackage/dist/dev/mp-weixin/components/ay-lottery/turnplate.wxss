@@ -1,0 +1,136 @@
+
+.txt{
+		padding-top: 10rpx;
+		padding-bottom: 10rpx;
+}
+	
+	/* 转盘 */
+.box-ly-zp {
+		margin: 0 auto;
+		position: relative;
+		border-radius: 50%;
+		box-shadow: 0 10rpx 30rpx #333, 0 0 10rpx #000;
+}
+.cs-ct {
+		position: absolute;
+		left: 0;
+		top: 0;
+		z-index: 1;
+		display: block;
+		border-radius: inherit;
+		background-clip: padding-box;
+}
+.cs-element {
+		position: relative;
+		z-index: 1;
+		width: inherit;
+		height: inherit;
+		border-radius: 50%;
+}
+.cs-list {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: inherit;
+		height: inherit;
+		z-index: 9999;
+}
+.cs-item {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		font-weight: bold;
+		text-shadow: 0 1rpx 1rpx rgba(255, 255, 255, 0.6);
+}
+.cs-item-text {
+		position: relative;
+		display: block;
+		padding-top: 20rpx;
+		margin: 0 auto;
+		text-align: center;
+		
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+}
+.cs-item-text text {
+		font-size: 30rpx;
+}
+.cs-item-text-img {
+		width: 60rpx;
+		height: 60rpx;
+		
+		border-radius: 50%;
+}
+	
+	/* 分隔线 */
+.cs-line {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: inherit;
+		height: inherit;
+		z-index: 99;
+}
+.cs-litem {
+		position: absolute;
+		
+		top: 0;
+		width: 3rpx;
+		
+		overflow: hidden;
+}
+	
+	/**  
+* 抽奖按钮  
+*/
+.cs-btn {
+		position: absolute;
+		background-color: #e44025;
+		z-index: 400;
+		width: 80rpx;
+		height: 80rpx;
+		border-radius: 50%;
+		color: #f4e9cc;
+		line-height: 80rpx;
+		text-align: center;
+		font-size: 26rpx;
+		text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.6);
+		box-shadow: 0 3px 5px rgba(0, 0, 0, 0.6);
+		text-decoration: none;
+}
+.cs-btn::after {
+		position: absolute;
+		display: block;
+		content: ' ';
+		left: 12rpx;
+		top: -44rpx;
+		width: 0;
+		height: 0;
+		overflow: hidden;
+		border-width: 30rpx;
+		border-style: solid;
+		border-color: transparent;
+		border-bottom-color: #e44025;
+}
+.cs-btn.disabled {
+		pointer-events: none;
+		background: #b07a7b;
+		color: #ccc;
+}
+.cs-btn.disabled::after {
+		border-bottom-color: #b07a7b;
+}
+.cs-btn-table {
+		
+		width: 120rpx;
+		text-align: center;
+		position: absolute;
+		
+		font-size: 26rpx;
+		background-color: #FFFFFF;
+		opacity: 0.9;
+}
+

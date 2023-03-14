@@ -1,0 +1,11 @@
+{
+  "component": true,
+  "usingComponents": {
+    "marquee": "/components/ay-lottery/marquee",
+    "turnplate": "/components/ay-lottery/turnplate",
+    "turn-lottery": "/components/ay-lottery/turnLottery",
+    "blow": "/components/ay-lottery/blow",
+    "blow-img": "/components/ay-lottery/blow_img",
+    "blow-any": "/components/ay-lottery/blow_any"
+  }
+}

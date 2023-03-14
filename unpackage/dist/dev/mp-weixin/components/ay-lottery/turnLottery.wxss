@@ -1,0 +1,304 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.re-turn {
+  width: 40%;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius: 10rpx;
+  margin: 30rpx 30%;
+  position: relative;
+}
+.box-ly-fp {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10rpx 10rpx 20rpx 10rpx;
+}
+.box-item-ly-fp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 25rpx;
+  width: 28%;
+  height: 200rpx;
+  line-height: 200rpx;
+  border-radius: 10rpx;
+  position: relative;
+  color: #fff;
+  margin-left: 0%;
+  margin-top: 50rpx;
+  text-align: center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.box-item-ly-fp::before {
+  content: "";
+  display: block;
+  background: inherit;
+  -webkit-filter: blur(10rpx);
+          filter: blur(10rpx);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 10rpx;
+  left: 10rpx;
+  z-index: -1;
+  opacity: 0.4;
+  -webkit-transform-origin: 0 0;
+          transform-origin: 0 0;
+  border-radius: inherit;
+  -webkit-transform: scale(1, 1);
+          transform: scale(1, 1);
+}
+.item1 {
+  -webkit-animation: item1 alternate linear 2 1s;
+          animation: item1 alternate linear 2 1s;
+}
+@-webkit-keyframes item1 {
+from {
+    top: 0;
+    left: 0;
+}
+to {
+    top: 230rpx;
+    left: 230rpx;
+}
+}
+@keyframes item1 {
+from {
+    top: 0;
+    left: 0;
+}
+to {
+    top: 230rpx;
+    left: 230rpx;
+}
+}
+.item2 {
+  -webkit-animation: item2 alternate linear 2 1s;
+          animation: item2 alternate linear 2 1s;
+}
+@-webkit-keyframes item2 {
+from {
+    top: 0;
+    left: 0;
+}
+to {
+    top: 230rpx;
+    left: 0rpx;
+}
+}
+@keyframes item2 {
+from {
+    top: 0;
+    left: 0;
+}
+to {
+    top: 230rpx;
+    left: 0rpx;
+}
+}
+.item3 {
+  -webkit-animation: item3 alternate linear 2 1s;
+          animation: item3 alternate linear 2 1s;
+}
+@-webkit-keyframes item3 {
+from {
+    top: 0;
+    left: 0;
+}
+to {
+    top: 230rpx;
+    left: -230rpx;
+}
+}
+@keyframes item3 {
+from {
+    top: 0;
+    left: 0;
+}
+to {
+    top: 230rpx;
+    left: -230rpx;
+}
+}
+.item4 {
+  -webkit-animation: item4 alternate linear 2 1s;
+          animation: item4 alternate linear 2 1s;
+}
+@-webkit-keyframes item4 {
+from {
+    top: 0;
+    left: 0;
+}
+to {
+    top: 0rpx;
+    left: 230rpx;
+}
+}
+@keyframes item4 {
+from {
+    top: 0;
+    left: 0;
+}
+to {
+    top: 0rpx;
+    left: 230rpx;
+}
+}
+.item6 {
+  -webkit-animation: item6 alternate linear 2 1s;
+          animation: item6 alternate linear 2 1s;
+}
+@-webkit-keyframes item6 {
+from {
+    top: 0;
+    left: 0;
+}
+to {
+    top: 0rpx;
+    left: -230rpx;
+}
+}
+@keyframes item6 {
+from {
+    top: 0;
+    left: 0;
+}
+to {
+    top: 0rpx;
+    left: -230rpx;
+}
+}
+.item7 {
+  -webkit-animation: item7 alternate linear 2 1s;
+          animation: item7 alternate linear 2 1s;
+}
+@-webkit-keyframes item7 {
+from {
+    top: 0;
+    left: 0;
+}
+to {
+    top: -230rpx;
+    left: 230rpx;
+}
+}
+@keyframes item7 {
+from {
+    top: 0;
+    left: 0;
+}
+to {
+    top: -230rpx;
+    left: 230rpx;
+}
+}
+.item8 {
+  -webkit-animation: item8 alternate linear 2 1s;
+          animation: item8 alternate linear 2 1s;
+}
+@-webkit-keyframes item8 {
+from {
+    top: 0;
+    left: 0;
+}
+to {
+    top: -230rpx;
+    left: 0rpx;
+}
+}
+@keyframes item8 {
+from {
+    top: 0;
+    left: 0;
+}
+to {
+    top: -230rpx;
+    left: 0rpx;
+}
+}
+.item9 {
+  -webkit-animation: item9 alternate linear 2 1s;
+          animation: item9 alternate linear 2 1s;
+}
+@-webkit-keyframes item9 {
+from {
+    top: 0;
+    left: 0;
+}
+to {
+    top: -230rpx;
+    left: -230rpx;
+}
+}
+@keyframes item9 {
+from {
+    top: 0;
+    left: 0;
+}
+to {
+    top: -230rpx;
+    left: -230rpx;
+}
+}
+.animt {
+  -webkit-animation: turn 1.2s;
+          animation: turn 1.2s;
+}
+@-webkit-keyframes turn {
+0% {
+    -webkit-transform: perspective(150px) rotateY(0deg);
+            transform: perspective(150px) rotateY(0deg);
+}
+50% {
+    -webkit-transform: perspective(150px) rotateY(0deg);
+            transform: perspective(150px) rotateY(0deg);
+}
+100% {
+    -webkit-transform: perspective(150px) rotateY(179.9deg);
+            transform: perspective(150px) rotateY(179.9deg);
+}
+}
+@keyframes turn {
+0% {
+    -webkit-transform: perspective(150px) rotateY(0deg);
+            transform: perspective(150px) rotateY(0deg);
+}
+50% {
+    -webkit-transform: perspective(150px) rotateY(0deg);
+            transform: perspective(150px) rotateY(0deg);
+}
+100% {
+    -webkit-transform: perspective(150px) rotateY(179.9deg);
+            transform: perspective(150px) rotateY(179.9deg);
+}
+}
+

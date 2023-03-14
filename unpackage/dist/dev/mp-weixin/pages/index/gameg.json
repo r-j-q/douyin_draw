@@ -1,0 +1,6 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "aylottery": "/components/ay-lottery/ay-lottery"
+  }
+}

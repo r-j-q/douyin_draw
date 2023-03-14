@@ -1,0 +1,266 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.box-ly-pm {
+  margin: 40rpx auto;
+  border-radius: 40rpx;
+  position: relative;
+}
+.box-in {
+  border-radius: 40rpx;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+/**小圆点 start*/
+.dot {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  height: 20rpx;
+  width: 20rpx;
+}
+.dot:nth-child(odd) {
+  background: #fff;
+  -webkit-animation: 0.5s odd linear infinite;
+          animation: 0.5s odd linear infinite;
+}
+.dot:nth-child(even) {
+  background: #fcf400;
+  -webkit-animation: 0.5s even linear infinite;
+          animation: 0.5s even linear infinite;
+}
+.dot-1 {
+  left: 15rpx;
+  top: 15rpx;
+}
+.dot-2 {
+  left: 117.5rpx;
+  top: 7.5rpx;
+}
+.dot-3 {
+  left: 220rpx;
+  top: 7.5rpx;
+}
+.dot-4 {
+  left: 322.5rpx;
+  top: 7.5rpx;
+}
+.dot-5 {
+  left: 425rpx;
+  top: 7.5rpx;
+}
+.dot-6 {
+  left: 527.5rpx;
+  top: 7.5rpx;
+}
+.dot-7 {
+  left: 620rpx;
+  top: 15rpx;
+}
+.dot-8 {
+  left: 622rpx;
+  top: 109rpx;
+}
+.dot-9 {
+  left: 622rpx;
+  top: 203rpx;
+}
+.dot-10 {
+  left: 622rpx;
+  top: 297rpx;
+}
+.dot-11 {
+  left: 622rpx;
+  top: 391rpx;
+}
+.dot-12 {
+  left: 622rpx;
+  top: 485rpx;
+}
+.dot-13 {
+  left: 620rpx;
+  top: 565rpx;
+}
+.dot-14 {
+  left: 517.5rpx;
+  top: 572rpx;
+}
+.dot-15 {
+  left: 415rpx;
+  top: 572rpx;
+}
+.dot-16 {
+  left: 312.5rpx;
+  top: 572rpx;
+}
+.dot-17 {
+  left: 210rpx;
+  top: 572rpx;
+}
+.dot-18 {
+  left: 107.5rpx;
+  top: 572rpx;
+}
+.dot-19 {
+  left: 15rpx;
+  top: 565rpx;
+}
+.dot-20 {
+  left: 7.5rpx;
+  top: 471rpx;
+}
+.dot-21 {
+  left: 7.5rpx;
+  top: 377rpx;
+}
+.dot-22 {
+  left: 7.5rpx;
+  top: 283rpx;
+}
+.dot-23 {
+  left: 7.5rpx;
+  top: 189rpx;
+}
+.dot-24 {
+  left: 7.5rpx;
+  top: 95rpx;
+}
+@-webkit-keyframes odd {
+0% {
+    background: #fff;
+}
+100% {
+    background: #fcf400;
+}
+}
+@keyframes odd {
+0% {
+    background: #fff;
+}
+100% {
+    background: #fcf400;
+}
+}
+@-webkit-keyframes even {
+0% {
+    background: #fcf400;
+}
+100% {
+    background: #fff;
+}
+}
+@keyframes even {
+0% {
+    background: #fcf400;
+}
+100% {
+    background: #fff;
+}
+}
+/**小圆点 end*/
+.ct-out {
+  position: absolute;
+  height: 150rpx;
+  width: 168rpx;
+  background-color: #fcecec;
+  border-radius: 15rpx;
+  box-shadow: 0 4px 0 #fcc8d0;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+/* 580 530  */
+.award-1 {
+  left: 24rpx;
+  top: 24rpx;
+}
+.award-2 {
+  left: 206rpx;
+  top: 24rpx;
+}
+.award-3 {
+  left: 388rpx;
+  top: 24rpx;
+}
+.award-4 {
+  left: 388rpx;
+  top: 188rpx;
+}
+.award-5 {
+  left: 388rpx;
+  top: 352rpx;
+}
+.award-6 {
+  left: 206rpx;
+  top: 352rpx;
+}
+.award-7 {
+  left: 24rpx;
+  top: 352rpx;
+}
+.award-8 {
+  left: 24rpx;
+  top: 188rpx;
+}
+/**居中 加粗*/
+.btn-start {
+  position: absolute;
+  top: 188rpx;
+  left: 206rpx;
+  border-radius: 15rpx;
+  height: 150rpx;
+  width: 168rpx;
+  background-color: #fc4034;
+  color: #fcf400;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: bold;
+  line-height: 150rpx;
+}
+.ative {
+  opacity: 0.6 !important;
+}
+.award-image {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 50rpx;
+  width: 50rpx;
+  border-radius: 50%;
+}
+.awardSelect {
+  background-color: #fcf400 !important;
+  box-shadow: 0 4px 0 #f0d00c !important;
+}
+
