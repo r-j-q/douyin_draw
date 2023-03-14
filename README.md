@@ -1,7 +1,7 @@
 # drawLucky
 一个用uniapp编写的h5抽奖页面，幸运九宫格
 
-简单介绍：
+简单介绍： 
 
 drawLucky是一个基于uniapp开发用于抽奖的h5页面demo
 
