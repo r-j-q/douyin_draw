@@ -18,6 +18,7 @@
 					<view class="data-title1"> 一个优惠券仅可使用一次，不得转让</view>
 					<view v-if="item.status==0" class="" style="font-size: 12px;margin-top: 20upx;color: green;">未核销 </view>
 					<view v-if="item.status==1" class="" style="font-size: 12px;margin-top: 20upx;color: #999;">已核销 </view>
+					<view v-if="item.status==2" class="" style="font-size: 12px;margin-top: 20upx;color: #999;">已过期 </view>
 				</view>
 			</view>
 			<view class="data-look" @click="lookDetail(item.id)">

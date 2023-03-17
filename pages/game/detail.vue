@@ -13,6 +13,7 @@
 		
 		<button v-if='p.status==0' :disabled="disabled" class="chexiao" @click="hexiao(p.id)">去核销</button>
 		<button v-if='p.status==1' disabled="true" class="chexiao">已核销</button>
+		<button v-if='p.status==2' disabled="true" class="chexiao">已过期</button>
 	</view>
 </template>
 <script>
