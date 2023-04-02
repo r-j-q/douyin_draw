@@ -35,7 +35,8 @@
 			const t = uni.getStorageSync('storage_user');
 				this.$Z.post(t.reqUrl + "/activity/awardDetail", {
 					id, 
-					token:t.token
+					token:t.token,
+					t:new Date().getTime()
 				}, {
 					native: false
 				}).then(res => {
@@ -55,7 +56,8 @@
 				this.disabled = true;
 				this.$Z.post(t.reqUrl + "/activity/checkout", {
 					id, 
-					token:t.token
+					token:t.token,
+					t:new Date().getTime()
 				}, {
 					native: false
 				}).then(res => {

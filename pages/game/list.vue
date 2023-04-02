@@ -56,7 +56,8 @@
 				this.$Z.post(t.reqUrl + "/activity/awardList", {
 					page: 1,
 					rows:1000,
-					token:t.token
+					token:t.token,
+					t:new Date().getTime()
 				}, {
 					native: false
 				}).then(res => {

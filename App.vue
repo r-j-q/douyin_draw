@@ -7,7 +7,7 @@
 		globalData: {
 			token: '',
 			// reqUrl: 'https://bdsh.shningmi.com/addons/shopro'
-			reqUrl:''
+			reqUrl:'' 
 		},
 		onShow: function() {
 			console.log('App Show')
@@ -20,6 +20,7 @@
 				console.log('==v===>', v)
 				this.globalData.reqUrl = "https://" + v + '/addons/shopro'
 			},
+			 
 			getRequestParams() {
 				let url = location.href;
 				let requestParams = {};

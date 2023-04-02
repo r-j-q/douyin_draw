@@ -7,7 +7,7 @@
 			<view class="turntable">
 				<view class="gift" v-for="(item,index) in giftlist" :key="index">
 					<view class="giftBox">
-						<image :src="item.image" mode="aspectFill" v-if="item.drawType"></image>
+						<!-- <image :src="item.image" mode="aspectFill" v-if="item.drawType"></image> -->
 						<text :class="{nogift:!item.drawType}">{{item.name}}</text>
 					</view>
 
@@ -82,7 +82,7 @@
 				<image class="close" src="../../static/event/lucky/close.png" mode="aspectFill" @click="maskShow(0)">
 				</image>
 			</view>
-			<a type="primary" class="button-video" :href="schema">发布视频</a>
+			<a type="primary" class="button-video" v-if="schema"   :href="schema?schema:'javascript:;'">发布视频</a>
 			<a type="primary" class="button-video" style="margin-top: 50upx;" @click="jumpToList">抽奖记录</a>
 		</view>
 
@@ -97,7 +97,7 @@
 				</view>
 
 			</view>
-			<a type="primary" class="button-video-style" :href="schema">发布视频</a>
+			<a type="primary" class="button-video-style" v-if="schema"   :href="schema?schema:'javascript:;'">发布视频</a>
 			<a type="primary" class="button-video-style" style="margin-top: 50upx;" @click="jumpToList">抽奖记录</a>
 			<view class="baocunxiangce">
 				刮奖后，请截图保存到相册
@@ -200,7 +200,8 @@
 				const t = uni.getStorageSync('storage_user');
 				this.$Z.post(t.reqUrl + "/activity/draw", {
 					activity_id: this.activity_id,
-					token: t.token
+					token: t.token,
+					t:new Date().getTime()
 				}, {
 					native: false
 				}).then(res => {
@@ -232,7 +233,8 @@
 				const t = uni.getStorageSync('storage_user');
 				this.$Z.post(t.reqUrl + "/activity/game", {
 					activity_id,
-					token: t.token
+					token: t.token,
+					t:new Date().getTime()
 				}, {
 					native: false
 				}).then(res => {
@@ -268,7 +270,8 @@
 				const t = uni.getStorageSync('storage_user');
 				this.$Z.post(t.reqUrl + "/activity/index", {
 					activity_id: this.activity_id,
-					token: t.token
+					token: t.token,
+					t:new Date().getTime()
 				}, {
 					native: false
 				}).then(res => {
@@ -514,7 +517,10 @@
 				.giftBox {
 					position: relative;
 					text-align: center;
-
+               display: flex;
+			   flex-direction: column;
+			   align-items: center;
+			   justify-content: center;
 					image {
 						width: 110rpx;
 						height: 110rpx;
@@ -532,13 +538,15 @@
 
 					.nogift {
 						display: block;
-						width: 61rpx;
-						height: 69rpx;
+						// width: 61rpx;
+						// height: 69rpx;
+						// line-height: 69rpx;
 						margin: 50rpx auto;
 						font-size: 30rpx;
 						font-family: jiangxizhuokai;
 						font-weight: 400;
 						color: #323232;
+						    margin-top:60rpx;
 					}
 				}
 			}
