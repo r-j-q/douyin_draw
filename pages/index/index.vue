@@ -1,797 +1,672 @@
 <template>
-	<view class="ji">
-		<view class="lucky" v-if="gameType==1">
-			<view class="title">
-				<image src="../../static/event/lucky/title.png" mode="aspectFill"></image>
-			</view>
-			<view class="turntable">
-				<view class="gift" v-for="(item,index) in giftlist" :key="index">
-					<view class="giftBox">
-						<!-- <image :src="item.image" mode="aspectFill" v-if="item.drawType"></image> -->
-						<text :class="{nogift:!item.drawType}">{{item.name}}</text>
-					</view>
+	<view class="backgroundColorLine">
+		<image :src="lanya" class="lanyastyle"></image>
+		<!-- <button type="primary" @click="startBluetoothDeviceDiscovery">搜索蓝牙</button>
+		<button type="primary" @click="onBluetoothDeviceFound">发现外围设备</button>
+		<button type="primary" @click="getBluetoothDevices">获取蓝牙设备信息</button>
+		<button type="primary" @click="getBLEDeviceServices">获取蓝牙所有服务</button>
+		<button type="primary" @click="getBLEDeviceCharacteristics">进入特征</button> -->
 
-					<view class="giftMask" v-if="index == roll"></view>
-				</view>
-				<view class="draw" @click="draw" v-if="!isDraw"></view>
-				<view class="draw drawing" v-else></view>
-			</view>
-			<view class="chances">
-				<text>您还有{{chance}}次机会</text>
-			</view>
-			<!-- <view class="">
-		 		{{base64Url}}
-		 	</view> -->
-			<!-- <view class="button">
-		 		<view class="btn rule" @click="maskShow(1)">
-		 			<text>抽奖规则</text>
-		 		</view>
-		 		<view class="btn record" @click="maskShow(2)">
-		 			<text>中奖记录</text>
-		 		</view>
-		 		http://bdsh.shningmi.com
-		 	</view> -->
-			<view class="mask" v-if="isMask!=0">
-				<!-- 	<view class="ruleBox" v-if="isMask==1">
-		 			<view class="title">
-		 				<image src="../../static/event/lucky/star.png" mode="aspectFill"></image>
-		 				<text>抽奖规则</text>
-		 				<image src="../../static/event/lucky/star.png" mode="aspectFill"></image>
-		 			</view>
-		 			<view class="textBox">
-		 				<text>
-		 					1、必须是在APP登录后才可参与抽奖<br />
-		 					2、每人仅可抽一次<br />
-		 					3、抽奖页面不可转发，仅限APP内抽奖<br />
-		 				</text>
-		 			</view>
-		 		</view>
-		 
-		 		<view class="recordBox" v-if="isMask==2">
-		 			<view class="title">
-		 				<image src="../../static/event/lucky/star.png" mode="aspectFill"></image>
-		 				<text>中奖记录</text>
-		 				<image src="../../static/event/lucky/star.png" mode="aspectFill"></image>
-		 			</view>
-		 			<view class="textBox">
-		 				<view class="time">
-		 					<text class="point"></text>
-		 					<text>03月2日 14:04</text>
-		 				</view>
-		 				<view class="prize">
-		 					<text>1元购全年企业法律服务套餐</text>
-		 				</view>
-		 			</view>
-		 		</view> -->
-				<!-- <html2canvas ref="html2canvas" :domId="domId" @renderFinish="renderFinish"> -->
-				<view id="htmlCanvas" class="getGiftBox" v-if="isMask==3">
 
-					<view class="title" v-if="gift.drawType">
-						恭喜抽中<br />
-						{{gift.name}}
-					</view>
-					<view class="title" v-else>
-						很遗憾<br />
-						您与奖品擦肩而过
-					</view>
-					<image src="../../static/event/lucky/getgift.png" mode="aspectFill" @click="getGift"
-						v-if="gift.drawType"></image>
-					<image src="../../static/event/lucky/nogift.png" mode="aspectFill" v-else></image>
-				</view>
-				<!-- </html2canvas> -->
-				<image class="close" src="../../static/event/lucky/close.png" mode="aspectFill" @click="maskShow(0)">
-				</image>
-			</view>
-			<a type="primary" class="button-video" v-if="schema"   :href="schema?schema:'javascript:;'">发布视频</a>
-			<a type="primary" class="button-video" style="margin-top: 50upx;" @click="jumpToList">抽奖记录</a>
+		<view class="backgroundColorLineText" v-if="!showButton">
+			蓝牙连接中,请稍等
 		</view>
 
-		<view class="" v-if="gameType==2">
-			<view class="guagua-0">
-				<image class="guagua" :src="gou" mode=""></image>
-			</view>
-			<view class="gua-gua-d-top">
-				<view class="an_ne">{{company || "浙江XXXXXX公司"}} </view>
-				<view class="gua-gua-d">
-					<gameg :name="name" :chance="chance" :disabled="disabled" />
-				</view>
-
-			</view>
-			<a type="primary" class="button-video-style" v-if="schema"   :href="schema?schema:'javascript:;'">发布视频</a>
-			<a type="primary" class="button-video-style" style="margin-top: 50upx;" @click="jumpToList">抽奖记录</a>
-			<view class="baocunxiangce">
-				刮奖后，请截图保存到相册
-			</view>
+		<view class="backgroundColorLineSuccess" v-if="showButton">
+			{{ list[0].name}} 连接成功
 
 		</view>
+
+
+		<!-- <view class="writeStyle" v-if="showButton">
+			<button type="primary" class="writeStyle12"  @click="handleOpenBluetoothAdapter">重试</button>
+			<button type="primary"  class="writeStyle12" @click="handleInToPay">支付费用</button>
+		</view> -->
+		<view class="writeStyle" v-if="showButton">
+
+			<button v-else open-type="getPhoneNumber" v-if="!getUserInfoDataToken" class="chexiao" @click.stop="loginfn"
+				@getphonenumber.stop="onGetPhoneNumber"> 手机号授权</button>
+			<button type="primary" class="writeStyle12" v-if="getUserInfoDataToken"
+				@click="createorder('PBSS',1)">开一盒</button>
+			<button type="primary" class="writeStyle12" v-if="getUserInfoDataToken"
+				@click="createorder('PASS',2)">开二盒</button>
+		</view>
+
+
+
+
+
+		<!-- 	<view class="writeStyle">
+			<button type="primary" class="bgColor" @click="handleOpenBluetoothAdapter">重试</button>
+			<button type="primary" @click="createBLEConnection(item.deviceId)">连接</button>
+			<button type="primary" @click="stopBluetoothDevicesDiscovery">停止搜索蓝牙</button>
+		</view> -->
+		<view class="huanxing" @click="writeBLECharacteristicValue('PCSS')">激活机身</view>
+		<!-- <view class="huanxing" @click="writeBLECharacteristicValue('PCSS')">激活机身</view> -->
 	</view>
 </template>
 
-<script module="renderScript" lang="renderjs">
-	import gameg from './gameg'
-	import html2canvas from '@/components/dyw-html2image/html2canvas.min.js';
-	// import guagua from "@/components/guagua/index.vue"
+<script>
+	import QQMapWX from '../../utils/qqmap-wx-jssdk.js'
+	var qqmapsdk;
 	export default {
-		components: {
-			gameg
-		},
 		data() {
-
 			return {
-				gou: require("../../static/img/gua.jpg"),
-				gameType: 1,
-				ifShareVideo: false,
-				domId: '#poster',
-				filePath: '',
-				logoBase64: '',
-				giftlist: [],
-				chance: 0, //可以抽奖次数
-				isMask: 0, //0不展示，1规则，2记录，3中奖界面
-				isDraw: false, //是否正在摇奖，false未摇，true摇
-				roll: 0, //从0开始滚动
-				result: "", //抽奖结果
-				interval: '', //按时间间隔持续调用函数
-				timeout: '', //定时器
-				gift: {}, //获得的奖品详情
-
-				base64Url: "",
-				activity_id: 53,
-				name: "",
-				company: "",
-				activity_id_choujiang: "",
-				schema: "",
-				disabled: false
-
-			};
+				showButton: false,
+				duration: 5000,
+				list: [],
+				deviceId: '',
+				serviceId: '',
+				characteristics: [],
+				characteristicId: '',
+				lanya: require('../../static/img/lanya.jpg'),
+				getUserInfo: {},
+				getUserInfoDataToken: false,
+				code: "",
+				address:"",
+				positionInfo: {
+					address: "",
+					longitude: "",
+					latitude: "",
+				}
+			}
 		},
 		onLoad() {
-			let _this = this;
-
-			try {
-				uni.setStorageSync(
-					'storage_user', {
-						token: getApp().getRequestParams().token.replace('#/', ''),
-						reqUrl: "https://" + window.location.host+ '/addons/shopro' ,
-					},
-				)
-			} catch (e) {
-				// error
-			}
-
-			// getApp().globalData.token= getApp().getRequestParams().token.replace('#/',''); 
-			// getApp().getRequestUrl(window.location.host);
-			_this.activity_id = window.location.href.match(/\?activity\_id\=(\d+)/)[1];
-
-
-			setTimeout(() => {
-				_this.getChoujiangYouXi(_this.activity_id);
-			}, 200)
-
-
-
-		},
-		onShow() {
-
-			// let ua = navigator.userAgent.toLowerCase();
-			// if (ua.match(/MicroMessenger/i) == "micromessenger") {
-			// 	//微信浏览器
-
-			// } else {
-			// 	//不是
-			// 	// this.com.rel('./page_fail') 
-			// }
-		},
-		methods: {
-			jumpToList() {
-				uni.navigateTo({
-					url: "/pages/game/list"
-				})
-			},
-			renderFinish(filePath) {
-
-				this.filePath = filePath;
-			},
-
-			// 点击抽奖获取的奖品
-
-
-			// 点击抽奖获取的奖品
-			getDraw() {
-				const t = uni.getStorageSync('storage_user');
-				this.$Z.post(t.reqUrl + "/activity/draw", {
-					activity_id: this.activity_id,
-					token: t.token,
-					t:new Date().getTime()
-				}, {
-					native: false
-				}).then(res => {
-					if (res.code == 1) {
-						this.activity_id_choujiang = res.data.id;
-						this.name = res.data.name;
-						this.chance = res.data.draw_num;
-					} else {
-
-						uni.showToast({
-							icon: "none",
-							title: res.msg
-						})
-
-						this.chance = 0
-						this.disabled = true
-
-					}
-					//异步操作成功
-
-				}).catch(res => {
-					//异步操作失败
-					// console.log(res)
-				}).finally(res => {
-					//异步操作完成
-				})
-			},
-			getChoujiangYouXi(activity_id) {
-				const t = uni.getStorageSync('storage_user');
-				this.$Z.post(t.reqUrl + "/activity/game", {
-					activity_id,
-					token: t.token,
-					t:new Date().getTime()
-				}, {
-					native: false
-				}).then(res => {
-					if (res.code == 1) {
-						this.chance = res.data.draw_num;
-						console.log("请求的域名", this.chance)
-						this.company = res.data.company;
-						this.gameType = res.data.type;
-						this.giftlist = res.data.awards;
-						if (res.data.type == 2) {
-							this.getDraw()
+			const that = this 
+			console.log('纬度' )
+			var QQMapWX = require('../../utils/qqmap-wx-jssdk')
+			var qqmapsdk = new QQMapWX({
+				key: 'OB7BZ-S6FWT-GOBXR-LONYL-GKEE5-OTBRD' // 必填
+			})
+			// https://blog.csdn.net/weixin_62353876/article/details/126779189
+			wx.getLocation({
+				type: 'wgs84',
+				success(res) {
+					console.log('纬度', res)
+					wx.setStorageSync('latitude', res.latitude)
+					wx.setStorageSync('longitude', res.longitude)
+				},
+				//wx.getLocation  回调里面把上面获取到的经纬度给引入的qqmap-wx-jssdk就可以获取到对应的地点了
+				complete() {
+					// 坐标转换
+					qqmapsdk.reverseGeocoder({
+						// 位置坐标，默认获取当前位置，非必须参数
+						location: {
+							latitude: wx.getStorageSync('latitude'),
+							longitude: wx.getStorageSync('longitude')
+						},
+						success: function(res) {
+							console.log(11, res.result.address_component.city)
+							that.address = res.result.address_component.city
+							console.log(22, that.address)
+							wx.setStorageSync('address_component', res.result.address_component.city)
+						},
+						fail: function(error) {
+							console.error('错误了', error)
 						}
-						this.getVideo()
-
-					} else {
-						uni.showToast({
-							icon: "none",
-							title: res.msg
-						})
-					}
-					//异步操作成功
-					// console.log('this.giftlist', this.giftlist)
-				}).catch(res => {
-					//异步操作失败
-					// console.log(res)
-				}).finally(res => {
-					//异步操作完成
-				})
-			},
-			//获取视频发布链接  
-			async getVideo() {
-				let systemPhone = uni.getSystemInfoSync();
-				const t = uni.getStorageSync('storage_user');
-				this.$Z.post(t.reqUrl + "/activity/index", {
-					activity_id: this.activity_id,
-					token: t.token,
-					t:new Date().getTime()
-				}, {
-					native: false
-				}).then(res => {
-					this.schema = res.data.schema
-
-
-
-				}).catch(res => {
-					//异步操作失败
-					// console.log(res)
-				}).finally(res => {
-					//异步操作完成
-				})
-			},
-
-			async getTrimVideo() {
-
-
-				this.$Z.post(t.reqUrl + "/activity/trimVideo?id=1", {}, {
-					native: false
-				}).then(res => {
-					//异步操作成功
-					// console.log('==========...', res)
-				}).catch(res => {
-					//异步操作失败
-					// console.log(res)
-				}).finally(res => {
-					//异步操作完成
-				})
-			},
-
-			//视频检测   http://bdsh.shningmi.com/addons/shopro/activity/trimVideo?id=1
-			// 开始抽奖
-			draw() {
-				this.getDraw();
-				if (this.chance > 0) {
-					// this.chance--
-					this.isDraw = true
-					clearInterval(this.interval)
-					this.interval = setInterval(() => {
-						this.roll++
-						if (this.roll >= 8) {
-							this.roll = 0
-						}
-					}, 200);
-					// 5秒中后出随机数结果
-					this.timeout = setTimeout(() => {
-						this.getResult()
-						this.stopDraw()
-						clearTimeout(this.timeout)
-					}, 5000)
-				} else {
-					uni.showToast({
-						title: '已无抽奖机会',
-						icon: 'none'
 					})
 				}
-			},
-			// 随机数获得最终结果
-			getResult() {
-				let _this = this;
+			})
+		
+		// this.getCurrentLocation()	
+		// uni.chooseLocation({
+		// 								success: (res) => {
+		// 									console.log('位置名称：' + res.name);
+		// 									console.log('详细地址：' + res.address);
+		// 									console.log('纬度：' + res.latitude);
+		// 									console.log('经度：' + res.longitude);
+		// 								}
+		// 							})
+	},
 
-				let idtype = _this.activity_id_choujiang;
-				_this.giftlist.forEach((item, i) => {
-					if (item.id == idtype) {
-						_this.result = i;
+	onShow() {
+			// this.getCurrentLocation()
+			this.handleOpenBluetoothAdapter();
+			let users = uni.getStorageSync('usersInfo');
+			if (users) {
+				this.getUserInfo = JSON.parse(users);
+				if (this.getUserInfo.data && this.getUserInfo.data.userinfo) {
+					this.getUserInfoDataToken = this.getUserInfo.data.userinfo ? true : false
+				}
+			}
+		},
+		methods: {
+			getCurrentLocation() {
+				let that = this //在uniapp中药定义一下this才能使用
+				uni.getLocation({
+					type: 'wgs84',
+					success: function(res) {
+						console.log('===8888====>', res);
+						that.positionInfo.longitude = res.longitude;
+						that.positionInfo.latitude = res.latitude;
+						that.loAcquire(that.positionInfo.longitude, that.positionInfo.latitude)
+
+					}
+				});
+			},
+			// 获取当前地址
+			loAcquire(longitude, latitude) {
+				let that = this;
+				uni.showLoading({
+					title: '加载中',
+					mask: true
+				});
+				let str = `output=jsonp&key='OB7BZ-S6FWT-GOBXR-LONYL-GKEE5-OTBRD'=${latitude},${longitude}` //记得在这里要输入密钥哦！
+				this.$jsonp('https://apis.map.qq.com/ws/geocoder/v1/?' + str, {}).then(res => {
+					console.log(res);
+					uni.hideLoading();
+					if (res.status == 0) {
+						that.positionInfo.address = '当前位置是:' + res.result.address_component.street_number; //当前定位
+						console.log('===9999====>', that.positionInfo);
+					}
+				})
+			},
+			//0000000000000000000000000
+			// 用户授权登录
+			//首先点击登录按钮的时候获取一下code，保存到data里
+			loginfn() {
+				let that = this;
+				wx.login({
+					success(res) {
+						that.code = res.code;
+						return;
+					},
+				});
+			},
+			//调用button自带的弹窗获取用户信息方法
+			async onGetPhoneNumber(val) {
+				//此时的val是用户点击了允许还是拒绝
+				let that = this;
+				if (val.detail.errMsg === "getPhoneNumber:ok") {
+
+					//保存需要的** iv, encryptedData **
+					const {
+						iv,
+						encryptedData
+					} = val.detail;
+					that.getawardDetail(that.code, encryptedData, iv)
+
+
+				}
+			},
+			getawardDetail(code, encryptedData, iv) {
+				uni.request({
+					url: 'http://ys.shningmi.com/api/login/login',
+					data: { //参数
+						code,
+						encryptedData,
+						iv
+					},
+					header: {
+						// 'Content-Type': 'application/x-www-form-urlencoded'
+						'Content-Type': 'application/json' //自定义请求头信息
+					},
+					method: 'POST', //请求方式，必须为大写
+					success: (res) => {
+						let {
+							data
+						} = res;
+						uni.setStorageSync('usersInfo', JSON.stringify(data));
+						this.getUserInfo = JSON.parse(uni.getStorageSync('usersInfo'));
+
+						console.log('缓存数据--1----', this.getUserInfo.data);
+
+						if (this.getUserInfo.data && this.getUserInfo.data.userinfo) {
+							console.log('缓存数据--2----', this.getUserInfo.data.userinfo);
+							this.getUserInfoDataToken = this.getUserInfo.data.userinfo ? true : false
+						}
+
+
+
 					}
 				})
 
 			},
-			// 抽奖结束
-			stopDraw() {
-				var stop = setInterval(() => {
-					if (this.roll == this.result) {
-						clearInterval(this.interval)
-						clearInterval(stop)
-						this.isDraw = false
-						this.gift = this.giftlist[this.result]
-						setTimeout(() => {
-							this.maskShow(3)
-						}, 1000)
+			//0000000000000000000000000
+
+
+
+			// 手动连接蓝牙
+			handleOpenBluetoothAdapter() {
+				uni.openBluetoothAdapter({
+					success: (res) => { //已打开
+						uni.getBluetoothAdapterState({ //蓝牙的匹配状态
+							success: (res1) => {
+								console.log(res1, '本机设备的蓝牙已打开')
+								// 开始搜索蓝牙设备
+								this.startBluetoothDeviceDiscovery()
+							},
+							fail(error) {
+								uni.showToast({
+									icon: 'none',
+									duration: this.duration,
+									title: '查看手机蓝牙是否打开'
+								});
+							}
+						});
+
+					},
+					fail: err => { //未打开 
+						uni.showToast({
+							icon: 'none',
+							duration: this.duration,
+							title: '查看手机蓝牙是否打开'
+						});
 					}
-				}, 10)
+				})
 			},
-			// 遮罩层展示
-			maskShow(type) {
-				this.isMask = type;
-
-				// if(type==3){
-				// 	uni.showToast({
-				// 		icon: "none",
-				// 		duration:3000,
-				// 		title: "截图保存到相册"
-				// 	})
-				// }
-
+			// 开始搜索蓝牙设备
+			startBluetoothDeviceDiscovery() {
+				uni.startBluetoothDevicesDiscovery({
+					success: (res) => {
+						console.log('startBluetoothDevicesDiscovery success', res)
+						// 发现外围设备
+						this.onBluetoothDeviceFound()
+					},
+					fail: err => {
+						console.log(err, '错误信息')
+					}
+				})
 			},
-			getGift(ownerVm) {
+			// 发现外围设备
+			onBluetoothDeviceFound() {
+				uni.onBluetoothDeviceFound((res) => {
+
+					if (this.list.indexOf(res.devices[0].deviceId) == -1) {
+						if (res.devices[0].name.slice(0, 4) === 'WMD8') {
+							this.createBLEConnection(res.devices[0].deviceId)
+							this.list.push({
+								name: res.devices[0].name,
+								deviceId: res.devices[0].deviceId
+							})
+							// console.log('----this.list------', this.list)
+						}
+
+					}
+				})
+			},
+			//获取在蓝牙模块生效期间所有已发现的蓝牙设备。包括已经和本机处于连接状态的设备。
+			getBluetoothDevices() {
+				console.log("获取蓝牙设备");
+				uni.getBluetoothDevices({
+					success: res => {
+						console.log('获取蓝牙设备成功:');
+						console.log(res.devices);
+					}
+				});
+			},
+			//选择设备连接吧deviceId传进来
+			createBLEConnection(deviceId) {
 				let _this = this;
+				//data里面建立一个deviceId，存储起来
+				this.deviceId = deviceId,
+					//连接蓝牙
+					uni.createBLEConnection({
+						// 这里的 deviceId 需要已经通过 createBLEConnection 与对应设备建立链接
+						deviceId: this.deviceId,
+						success(res) {
+							console.log("蓝牙连接成功", res);
+							// 获取蓝牙服务
+							_this.getBLEDeviceServices()
+						},
+						fail(res) {
+							console.log("蓝牙连接失败", res)
+						}
+					})
+			},
+			// 停止搜寻蓝牙设备
+			stopBluetoothDevicesDiscovery() {
+				uni.stopBluetoothDevicesDiscovery({
+					success: e => {
+						this.loading = false
+						console.log('停止搜索蓝牙设备:' + e.errMsg);
+					},
+					fail: e => {
+						console.log('停止搜索蓝牙设备失败，错误码：' + e.errCode);
+					}
+				});
+			},
 
-				// 获取链接
-				_this.maskShow(0)
+			//获取蓝牙特征
+			getBLEDeviceCharacteristics() {
+				let _this = this;
+				console.log("进入特征");
+				setTimeout(() => {
+					uni.getBLEDeviceCharacteristics({
+						// 这里的 deviceId 需要已经通过 createBLEConnection 与对应设备建立链接
+						deviceId: this.deviceId,
+						// 这里的 serviceId 需要在 getBLEDeviceServices 接口中获取
+						serviceId: this.serviceId,
+						success: (res) => {
+							console.log('特征getBLEDeviceCharacteristics', res)
+							this.characteristics = res.characteristics
+							console.log('特征数组', this.characteristics)
+							// "0000FFE1-0000-1000-8000-00805F9B34FB"
+							res.characteristics.forEach((item) => {
+								if (item.uuid.indexOf("FFE1") != -1) {
+									_this.characteristicId = item.uuid
+									//console.log('characteristicId:', item.uuid)
+									//利用传参的形势传给下面的notify，这里的uuid如果都需要用到，就不用做判断了，建议使用setTimeout进行间隔性的调用此方法
+									_this.notifyBLECharacteristicValueChange(item.uuid)
+								}
+							})
+						},
+						fail: (res) => {
+							console.log(res)
+						}
+					})
+				}, 1000)
+			},
+			// 启用 notify 功能
+			notifyBLECharacteristicValueChange(characteristicId) {
+				let _this = this;
+				console.log(characteristicId, 'characteristicId')
+				uni.notifyBLECharacteristicValueChange({
+					state: true, // 启用 notify 功能
+					// 这里的 deviceId 需要已经通过 createBLEConnection 与对应设备建立链接
+					deviceId: this.deviceId,
+					// 这里的 serviceId 需要在 getBLEDeviceServices 接口中获取
+					serviceId: this.serviceId,
+					// 这里的 characteristicId 需要在 getBLEDeviceCharacteristics 接口中获取
+					characteristicId: characteristicId,
+					success: (res) => {
+						console.log(res)
+						// console.log(this.characteristicId)
+						_this.listenValueChange()
+						console.log('notifyBLECharacteristicValueChange success', res.errMsg)
+					},
+					fail: (res) => {
+						console.log('notifyBLECharacteristicValueChange fail', res.errMsg)
+					}
+				})
+			},
+			//获取蓝牙的所有服务
+			getBLEDeviceServices() {
+				setTimeout(() => {
+					uni.getBLEDeviceServices({
+						// 这里的 deviceId 需要已经通过 createBLEConnection 与对应设备建立链接
+						deviceId: this.deviceId,
+						success: (res) => {
+							console.log('获取到蓝牙所有的服务:', res)
+							// 0: {uuid: "0000FFE0-0000-1000-8000-00805F9B34FB", isPrimary: true}
+							// 1: {uuid: "00001800-0000-1000-8000-00805F9B34FB", isPrimary: true}
+							// 2: {uuid: "00001801-0000-1000-8000-00805F9B34FB", isPrimary: true}
+							res.services.forEach((item) => {
+								if (item.uuid.indexOf("FFE0") != -1) {
+									this.serviceId = item.uuid;
+									console.log("1800特征值", this.serviceId)
+									//获取特征
+									this.getBLEDeviceCharacteristics()
+								}
+							})
+						}
+					})
+				}, 1000)
+			},
+			strToHexCharCode(str) {
+				if (str === "")
+					return "";
+				var hexCharCode = [];
+				hexCharCode.push("0x");
+				for (var i = 0; i < str.length; i++) {
+					hexCharCode.push((str.charCodeAt(i)).toString(16));
+				}
+				return hexCharCode.join("");
+			},
+			handleInToPay() {
+				let params = {
+					deviceId: this.deviceId,
+					serviceId: this.serviceId,
+					unids: this.list[0].name.slice(4),
+					characteristicId: this.characteristicId
+				};
+				let param = JSON.stringify(params)
+				uni.navigateTo({
+					url: '/pages/game/detail?param=' + param
+				})
+			},
+			//写入蓝牙 这页面传入PCSS是唤醒功能
+			async writeBLECharacteristicValue(v) {
+				console.log('这页面传入PCSS是唤醒功能', v);
+				console.log('这页面传入PCSS是唤醒功能1', this.deviceId);
+				console.log('这页面传入PCSS是唤醒功能2', this.serviceId);
+				console.log('这页面传入PCSS是唤醒功能3', this.characteristicId);
+				let unids = this.list[0].name.slice(4)
+				//PASS PBSS
+				let msg = v + unids;
+				const buffer = new ArrayBuffer(msg.length);
+				const dataView = new DataView(buffer);
+				for (var i = 0; i < msg.length; i++) {
+					dataView.setUint8(i, msg.charAt(i).charCodeAt())
+				}
+				let resHex = this.ab2hex(buffer) + "0D0A";
 
 
-				this.ifShareVideo = true
+				var buffers = new Uint8Array(resHex.match(/[\da-f]{2}/gi).map(function(h) {
+					return parseInt(h, 16)
+				})).buffer
+				console.log('这页面传入PCSS是唤醒功能3buffers', buffers);
+				uni.writeBLECharacteristicValue({
+					deviceId: this.deviceId,
+					serviceId: this.serviceId,
+					characteristicId: this.characteristicId,
+					value: buffers,
+					success(res) {
+						console.log('写入成功', res);
+						uni.showToast({
+							icon: 'none',
+							title: "开启成功"
+						})
+					},
+					fail(res) {
+						console.log('写入失败1', JSON.stringify(res))
+						// console.log('写入失败2', JSON.stringify(buffer))
+					}
+				})
+			},
 
-				// const dom = document.getElementById('htmlCanvas');
-				// html2canvas(dom, {
-				// 	width: dom.clientWidth, //dom 原始宽度
-				// 	height: dom.clientHeight,
-				// 	scrollY: 0, // html2canvas默认绘制视图内的页面，需要把scrollY，scrollX设置为0
-				// 	scrollX: 0,
-				// 	dpi: 300,
-				// 	useCORS: true, //支持跨域，但好像没什么用
-				// 	allowTaint: false
-				// }).then((canvas) => {
-				// 	const base64 = canvas.toDataURL('image/jpeg', 1);
-				// 	_this.saveBaseImgFile(base64)
 
-				// });
+			// 88888888888
+
+			//字符串转arraybuffer
+
+			string2buffer(str) {
+
+				// 首先将字符串转为16进制
+
+				let val = ""
+
+				for (let i = 0; i < str.length; i++) {
+
+					if (val === '') {
+
+						val = str.charCodeAt(i).toString(16)
+
+					} else {
+
+						val += ',' + str.charCodeAt(i).toString(16)
+
+					}
+
+				}
+				console.log('16数据', val)
+				// console.log(val)
+
+				// 将16进制转化为ArrayBuffer
+
+				return new Uint8Array(val.match(/[\da-f]{2}/gi).map(function(h) {
+
+					return parseInt(h, 16)
+
+				})).buffer
+
 
 
 			},
-			saveBaseImgFile(base64) {
-				this.base64Url = base64
-				// console.log('ownerVm', base64)
-				// uni.saveImageToPhotosAlbum({
-				// 	filePath: base64,
-				// 	success: function() {
-				// 		uni.showToast({
-				// 			title: '图片保存成功',
-				// 			icon: 'none'
-				// 		})
-				// 		bitmap.clear()
-				// 	}
-				// });
+			str2ab(str) {
+				const buffer = new ArrayBuffer(str.length / 2);
+				let x = new Uint8Array(buffer);
+				for (let i = 0; i < x.length; i++) {
+					x[i] = parseInt(str.substr(2 * i, 2), 16)
+				}
+				return buffer;
+			},
+			// ArrayBuffer转16进度字符串示例
+			ab2hex(buffer) {
+				const hexArr = Array.prototype.map.call(
+					new Uint8Array(buffer),
+					function(bit) {
+						return (bit.toString(16)).slice(-2)
+					}
+				)
+				return hexArr.join('')
+			},
 
-			}
+			// 将16进制的内容转成我们看得懂的字符串内容
+			hexCharCodeToStr(hexCharCodeStr) {
+				var trimedStr = hexCharCodeStr.trim();
+				var rawStr = trimedStr.substr(0, 2).toLowerCase() === "0x" ? trimedStr.substr(2) : trimedStr;
+				var len = rawStr.length;
+				if (len % 2 !== 0) {
+					alert("存在非法字符!");
+					return "";
+				}
+				var curCharCode;
+				var resultStr = [];
+				for (var i = 0; i < len; i = i + 2) {
+					curCharCode = parseInt(rawStr.substr(i, 2), 16);
+					resultStr.push(String.fromCharCode(curCharCode));
+				}
+				return resultStr.join("");
+			},
 
+			// 【9】监听消息变化
+			listenValueChange() {
+				let _this = this;
+				console.log("进去了吗")
+				_this.showButton = true
+				uni.onBLECharacteristicValueChange(res => {
+					// 结果
+					console.log('进去了吗1111', res)
+
+					// 结果里有个value值，该值为 ArrayBuffer 类型，所以在控制台无法用肉眼观察到，必须将该值转换为16进制
+					let resHex = _this.ab2hex(res.value)
+					console.log(resHex)
+
+					// 最后将16进制转换为ascii码，就能看到对应的结果
+					let result = _this.hexCharCodeToStr(resHex)
+					console.log('最终结果', result)
+				})
+			},
+			// 创建订单
+			async createorder(v, numV) {
+				let _this = this;
+				await uni.request({
+					url: 'http://ys.shningmi.com/api/order/create',
+					data: {
+						guid: "guid",
+						qty: numV
+					},
+					header: {
+						// 'Content-Type': 'application/x-www-form-urlencoded'
+						'Content-Type': 'application/json',
+						'token': this.getUserInfo.data.token
+					},
+					method: 'POST', //请求方式，必须为大写
+					success: (res) => {
+						// _this.writeBLECharacteristicValue(v);
+						uni.requestPayment({
+							provider: 'wxpay', // 服务提提供商
+							timeStamp: res.data.data.timeStamp, // 时间戳
+							nonceStr: res.data.data.nonceStr, // 随机字符串
+							package: res.data.data.package,
+							signType: res.data.data.signType, // 签名算法
+							paySign: res.data.data.sign, // 签名
+							success: function(res) {
+								console.log('支付成功', res);
+								_this.writeBLECharacteristicValue(v)
+
+
+							},
+							fail: function(err) {
+								console.log('支付失败', err);
+							}
+						});
+
+					}
+				})
+
+			},
+			// 8888888888
+
+			// 获取当前位置
+
+			// 当前位置
 		}
 	}
 </script>
 
-<style lang="scss">
-	// 引入字体
-	@font-face {
-		font-family: 'jiangxizhuokai';
-		src: url('~@/static/font/jiangxizhuokai.TTF');
-	}
-
-	.ji {
-		background-color: #dd1539;
+<style scoped>
+	.backgroundColorLine {
+		background: linear-gradient(180deg, #4E85FD 0%, #84BBFF 100%);
 		min-height: 100vh;
 	}
 
-	.guagua-0 {
-		width: 100%;
+	.lanyastyle {
+		width: 500upx;
 		height: 500upx;
-	}
-
-	.guagua-0 image {
-		width: 100%;
-		height: 100%;
-	}
-
-	.gua-gua-d-top {
-
-		padding-top: 100upx;
-		margin-top: -2upx;
-	}
-
-	.gua-gua-d {
-		// background-color: #f6bb21;
-
-	}
-
-	.baocunxiangce {
-		font-size: 12px;
-		color: #ccc;
-		margin-top: 100upx;
-		text-align: center;
-	}
-
-	.an_ne {
-		width: 80%;
 		margin: 0 auto;
-		font-size: 16px;
-		padding: 20upx 0;
-		margin-bottom: 50upx;
-		text-align: center;
-		color: #FFFFFF;
-		// border: 2px solid #fff;
-		// background-image: linear-gradient(to right, #dde539, #f6bb21);
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-
-	.lucky {
-		width: 100%;
-		height: 100vh;
-		background-image: url(../../static/event/lucky/back.png);
-		background-repeat: no-repeat;
-		background-position: center;
-		background-size: cover;
-		position: relative;
 		display: flex;
-		align-items: center;
-		justify-content: center;
-		flex-direction: column;
-
-		.title {
-			image {
-				width: 436rpx;
-				height: 121rpx;
-				display: block;
-				margin: 0 auto 50rpx;
-			}
-		}
-
-		.turntable {
-			width: 650rpx;
-			height: 650rpx;
-			position: relative;
-			margin: 0 auto;
-			background-image: url(../../static/event/lucky/turntableBack.png);
-			background-repeat: no-repeat;
-			background-position: center;
-			background-size: cover;
-
-			.gift,
-			.draw {
-				width: 172rpx;
-				height: 172rpx;
-				overflow: hidden;
-				position: absolute;
-				background: linear-gradient(0deg, #FFE5E5 0%, #FFFFFF 100%);
-				box-shadow: 0rpx 2rpx 8rpx 0rpx rgba(0, 0, 0, 0.31);
-				border-radius: 10rpx;
-			}
-
-			.gift {
-				.giftBox {
-					position: relative;
-					text-align: center;
-               display: flex;
-			   flex-direction: column;
-			   align-items: center;
-			   justify-content: center;
-					image {
-						width: 110rpx;
-						height: 110rpx;
-					}
-
-					text {
-						display: block;
-						margin-top: 12rpx;
-						text-align: center;
-						font-size: 26rpx;
-						font-family: jiangxizhuokai;
-						font-weight: 400;
-						color: #323232;
-					}
-
-					.nogift {
-						display: block;
-						// width: 61rpx;
-						// height: 69rpx;
-						// line-height: 69rpx;
-						margin: 50rpx auto;
-						font-size: 30rpx;
-						font-family: jiangxizhuokai;
-						font-weight: 400;
-						color: #323232;
-						    margin-top:60rpx;
-					}
-				}
-			}
-
-			.gift:nth-child(1) {
-				top: 53rpx;
-				left: 56rpx;
-			}
-
-			.gift:nth-child(2) {
-				top: 53rpx;
-				left: 239rpx;
-			}
-
-			.gift:nth-child(3) {
-				top: 53rpx;
-				right: 56rpx;
-			}
-
-			.gift:nth-child(4) {
-				top: 236rpx;
-				right: 56rpx;
-			}
-
-			.gift:nth-child(5) {
-				bottom: 59rpx;
-				right: 56rpx;
-			}
-
-			.gift:nth-child(6) {
-				bottom: 59rpx;
-				left: 239rpx;
-			}
-
-			.gift:nth-child(7) {
-				bottom: 59rpx;
-				left: 56rpx;
-			}
-
-			.gift:nth-child(8) {
-				top: 236rpx;
-				left: 56rpx;
-			}
-
-			.draw {
-				top: 236rpx;
-				left: 239rpx;
-				background-image: url(../../static/event/lucky/draw.png);
-				background-repeat: no-repeat;
-				background-position: center;
-				background-size: cover;
-			}
-
-			.drawing {
-				background-image: url(../../static/event/lucky/draw_ing.png);
-			}
-
-			.giftMask {
-				width: 100%;
-				height: 100%;
-				position: absolute;
-				top: 0;
-				left: 0;
-				background: rgba($color: #000000, $alpha: 0.2);
-			}
-
-		}
-
-		.chances {
-			width: 280rpx;
-			height: 50rpx;
-			margin: 0 auto;
-			background: #F0352D;
-			border-radius: 0rpx 0rpx 25rpx 25rpx;
-			text-align: center;
-			line-height: 50rpx;
-
-			text {
-				font-size: 28rpx;
-				font-family: PingFang SC;
-				font-weight: 800;
-				letter-spacing: 5rpx;
-				color: #FFFFFF;
-			}
-		}
-
-		.button {
-			margin-top: 80rpx;
-			margin-bottom: 150rpx;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-
-			.btn {
-				width: 260rpx;
-				height: 80rpx;
-				background: #FFFFFF;
-				box-shadow: 0rpx 4rpx 9rpx 0rpx rgba(255, 98, 60, 0.6);
-				border-radius: 10rpx;
-				text-align: center;
-				line-height: 80rpx;
-
-				text {
-					font-size: 28rpx;
-					font-family: PingFang SC;
-					font-weight: 800;
-				}
-			}
-
-			.rule {
-				margin-right: 80rpx;
-				color: #FF623C;
-			}
-
-			.record {
-				background-color: #FF623C;
-				color: #FFFFFF;
-			}
-		}
-
-		.mask {
-			width: 100%;
-			height: 100vh;
-			background-color: rgba($color: #000000, $alpha: 0.6);
-			position: absolute;
-			top: 0;
-			left: 0;
-
-			.ruleBox,
-			.recordBox {
-				width: 444rpx;
-				height: 582rpx;
-				background: #F9C437;
-				border-radius: 20rpx;
-				margin: 336rpx auto 0;
-				padding: 39rpx 48rpx;
-
-				.title {
-					margin-bottom: 30rpx;
-					display: flex;
-					justify-content: center;
-
-					image {
-						width: 51rpx;
-						height: 44rpx;
-					}
-
-					text {
-						font-size: 30rpx;
-						font-family: PingFang SC;
-						font-weight: 800;
-						color: #FFFFFF;
-					}
-				}
-
-				.textBox {
-					font-size: 24rpx;
-					font-family: PingFang SC;
-					font-weight: 800;
-					color: #FFFFFF;
-					line-height: 35rpx;
-
-					.time {
-						position: relative;
-
-						.point {
-							position: absolute;
-							left: -20rpx;
-							top: 50%;
-							transform: translateY(-50%);
-							display: block;
-							width: 8rpx;
-							height: 8rpx;
-							background: #FFFFFF;
-							border-radius: 50%;
-						}
-					}
-				}
-			}
-
-			.getGiftBox {
-				width: 500rpx;
-				height: 600rpx;
-				position: relative;
-				background-image: url(../../static/event/lucky/redbag.png);
-				background-repeat: no-repeat;
-				background-size: cover;
-				background-position: center;
-				margin: 296rpx auto 0;
-
-				.title {
-					text-align: center;
-					font-size: 30rpx;
-					font-family: jiangxizhuokai;
-					font-weight: 400;
-					color: #323232;
-					line-height: 40rpx;
-					position: absolute;
-					top: 269rpx;
-					left: 50%;
-					transform: translateX(-50%);
-				}
-
-				image {
-					width: 165rpx;
-					height: 165rpx;
-					position: absolute;
-					bottom: 18rpx;
-					left: 50%;
-					transform: translateX(-50%);
-				}
-			}
-
-			.close {
-				width: 50rpx;
-				height: 50rpx;
-				margin-top: 32rpx;
-				position: relative;
-				left: 50%;
-				transform: translateX(-50%);
-			}
-		}
+		padding-top: 47%;
 	}
 
-	.button-video {
-		background-color: red;
+	.backgroundColorLineText {
 		color: #fff;
-		width: 80%;
-		padding: 30upx 20px;
 		text-align: center;
-		border-radius: 10px;
-		margin-top: 60upx;
-		text-decoration: none;
+		font-size: 14px;
+		margin-top: 50upx;
 	}
 
-	.button-video-style {
-		background-color: #fff;
-		color: #000;
-		width: 70%;
-		padding: 15px 20px;
-		border-radius: 10px;
-		text-decoration: none;
-		display: block;
+	.backgroundColorLineSuccess {
+		color: #fff;
 		text-align: center;
-		margin: 0 auto;
-		margin-top: 31px;
+		font-size: 14px;
+		margin-top: 50upx;
+	}
+
+	.writeStyle {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-around;
+		margin-top: 50px;
+	}
+
+	.bgColor {
+		width: 60%;
+		background-color: #fff;
+		border: none;
+		outline: none;
+		color: #e4393c;
+		font-size: 26upx;
+	}
+
+	.writeStyle12 {
+		font-size: 28upx;
+	}
+
+	.huanxing {
+		position: fixed;
+		right: 30upx;
+		bottom: 50upx;
+		/* width: 100upx; */
+		/* height: 100upx; */
+		/* line-height: 100upx; */
+		text-align: center;
+		border-radius: 50upx;
+		background-color: #fff;
+		color: #4E85FD;
+		font-size: 12px;
+		padding: 10px;
 	}
 </style>
